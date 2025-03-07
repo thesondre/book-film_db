@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=item.title%></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1><%=item.title %> (<%=item.type %>)</h1>
+    <% if (item.picture_url) { %>
+    <img src="<%=item.picture_url %>" alt="<%=item.title %>" style="max-width: 200px;">
+<%=}%>
+<h2>Reviews</h2>
+<% if (user) { %>
+    <form action="/items/review/<%= item.id %>" method="post">
+        <label for="">Rating (1-5)</label>
+        <input type="number" name="rating" min="1" max="5" required>
+        <textarea name="comment" placeholder="review"></textarea>
+        <button type="submit">Submit</button>
+    </form>
+<%= } %>
+
+<ul>
+    <% reviews.forEach(review => { %>
+        <li>
+            <p><strong><%= review.name %></strong>: <%=review.rating %> stars</p>
+            <p><%= review.comment %></p>
+            <p><small><%= review.created_at %></small></p>
+        </li>
+    <%= }) %>
+</ul>
+<a href="/items/dashboard">Back to Dashboard</a>
+</body>
+</html>
