@@ -14,7 +14,7 @@ router.get("/dashboard", isAuthenticated, (req, res) => {
         if (err) {
             return res.status(500).send("error fetching items")
         }
-        res.renderer("dashboard", {user: req.session.user, items})
+        res.render("dashboard", {user: req.session.user, items})
     })
 })
 
@@ -63,3 +63,4 @@ router.post("/delete:id", isAuthenticated, (req, res)=>{
         res.redirect("/items/dashboard")
     })
 })
+module.exports = router

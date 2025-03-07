@@ -7,10 +7,10 @@
 </head>
 <body>
   <h1>Welcome to Book and Film app</h1>  
-  <%= if(user) {%>
+  <% if(user) {%>
     <p>Hello, <%=user.name %>! <a href="/items/dashboard">Go to dashboard</a>|<a href="/auth/logout">Logout</a></p>
     <%} else { %>
-        <p><a href="/auth/register">Registrer</a> | <a href="/auth/login"></a></p>
+        <p><a href="/auth/register">Registrer</a> | <a href="/auth/login">Login</a></p>
 <%}%>
 </body>
 </html>

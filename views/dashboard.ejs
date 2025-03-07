@@ -21,17 +21,19 @@
    </form>
    <h2>Items</h2>
    <ul>
-    <% items.forEach(item => { %>
     <li>
+    <% items.forEach(item => { %>  
         <%= item.title%> (<%= item.type%>)
         <a href="/items/view/<%= item.id%>">View</a>
         <% if(item.user_id === user.id) { %>
         <form action="/items/delete/<%= item.id%>" method="post" style="display: inline;">
             <button type="submit">Delete</button>
         </form>
+        <% } %>
     <% } %>
+    <% ) %>
     </li>
-    <%)%>
+    
    </ul>
    <a href="/auth/logout">Log out</a>
 </body>
