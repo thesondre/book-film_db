@@ -10,7 +10,7 @@ dotenv.config()
 const app = express()
 
 app.use(express.json())
-qpp.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: true}))
 app.use(cors())
 app.use(express.static(path.join(__dirname, "public")))
 app.set("view engine", "ejs")
