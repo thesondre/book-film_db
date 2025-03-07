@@ -18,3 +18,24 @@ create tables items (
     created_at timestamp default current_timestamp
     foreign key (user_id) references users(id)
 )
+
+create table reviews (
+    id int auto_increment primary key,
+    item_id int,
+    user_id int,
+    rating int not null check(rating >= 1 and rating <=5),
+    comment text,
+    created_at timestamp default current_timestamp,
+    foreign key (item_id) references items(id),
+    foreign key (user_id) references users(id)
+);
+
+create table comments (
+    id int auto_increment primary key,
+    review_id int,
+    user_id int,
+    comment_text text not null,
+    created_at timestamp default current_timestamp,
+    foreign key (review_id) references reviews(id),
+    foreign key (user_id) references users(id)
+); 
