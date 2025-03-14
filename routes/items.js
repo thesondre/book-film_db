@@ -22,7 +22,7 @@ router.post("/add", isAuthenticated, (req, res) => {
     const {title, type, picture_url} = req.body
     db.query("insert into items (title, type, picture_url, user_id) values (?, ?, ?, ?)", [title, type, picture_url, req.session.user.id], (err) => {
         if(err){
-            return res.status(500).send("Error adding item")
+            return res.status(500).send("Error adding item: "+ err)
         }
         res.redirect("/items/dashboard")
     })
@@ -30,7 +30,8 @@ router.post("/add", isAuthenticated, (req, res) => {
 
 router.get("/view/:id", (req, res) => {
     const itemId = req.params.id
-    db.query("select * from items where id = ?", [items], (err, items) => {
+    db.query("select * from items where id = ?", [itemId], (err, items) => {
+        console.log(items)
         if(err||items.length === 0){
             return res.status(500).send("Item not found")
         }
@@ -41,6 +42,7 @@ router.get("/view/:id", (req, res) => {
             res.render("item", {item: items[0], reviews, user:req.session.user || null})
         })
     })
+    
 })
 
 router.post("/review/:id", isAuthenticated, (req, res) =>{
@@ -54,11 +56,16 @@ router.post("/review/:id", isAuthenticated, (req, res) =>{
     })
 })
 
-router.post("/delete:id", isAuthenticated, (req, res)=>{
+router.post("/delete/:id", isAuthenticated, (req, res)=>{
     const itemId = req.params.id
+    db.query("delete from reviews where item_id=?", [itemId], err => {
+        if(err){
+            return res.status(500).send("Error deleting reviews: "+err)
+        }
+    })
     db.query("delete from items where id=? and user_id =?", [itemId, req.session.user.id], (err)=>{
         if(err){
-            return res.status(500).send("Error deleting item")
+            return res.status(500).send("Error deleting item: "+err)
         }
         res.redirect("/items/dashboard")
     })

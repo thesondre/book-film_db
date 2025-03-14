@@ -10,7 +10,7 @@
     <h1><%=item.title %> (<%=item.type %>)</h1>
     <% if (item.picture_url) { %>
     <img src="<%=item.picture_url %>" alt="<%=item.title %>" style="max-width: 200px;">
-<%=}%>
+<% } %>
 <h2>Reviews</h2>
 <% if (user) { %>
     <form action="/items/review/<%= item.id %>" method="post">
@@ -19,7 +19,7 @@
         <textarea name="comment" placeholder="review"></textarea>
         <button type="submit">Submit</button>
     </form>
-<%= } %>
+<% } %>
 
 <ul>
     <% reviews.forEach(review => { %>
@@ -28,7 +28,7 @@
             <p><%= review.comment %></p>
             <p><small><%= review.created_at %></small></p>
         </li>
-    <%= }) %>
+    <% }) %>
 </ul>
 <a href="/items/dashboard">Back to Dashboard</a>
 </body>

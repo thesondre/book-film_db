@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="/scc/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
    <h1>Dashboard</h1> 
@@ -21,8 +21,9 @@
    </form>
    <h2>Items</h2>
    <ul>
-    <li>
-    <% items.forEach(item => { %>  
+    
+    <% items.forEach(item => { %>
+        <li>  
         <%= item.title%> (<%= item.type%>)
         <a href="/items/view/<%= item.id%>">View</a>
         <% if(item.user_id === user.id) { %>
@@ -30,9 +31,9 @@
             <button type="submit">Delete</button>
         </form>
         <% } %>
-    <% } %>
-    <% ) %>
     </li>
+    <% }) %>
+    
     
    </ul>
    <a href="/auth/logout">Log out</a>
