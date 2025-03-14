@@ -21,7 +21,7 @@
    <button type="submit">Add item</button>
    </form>
    <h2>Items</h2>
-   <button id="btn">Read</button>
+   <button id="btn">Read Items</button>
    <ul id="items">
     <% items.forEach(item => { %>
         <li>  
@@ -43,16 +43,17 @@
 
     document.getElementById("btn").addEventListener("click", async function(){
         const array = items.innerText.split("\n")
-        console.log(array.toString())
-        const body = JSON.stringify({items:array})
-        console.log(body)
-        fetch("/read", {
-            method:"POST",
-            headers: {
-                "Content-Type":"application/json"
-            },
-            body: body
-        })
+        text = array.join(", ")
+        console.log(text)
+        const speechSynth = window.speechSynthesis;
+
+        array.forEach(i => {
+            const utterance = new SpeechSynthesisUtterance(i)
+            speechSynth.speak(utterance)
+        });
+
+        
+        
     })
    </script>
 </body>
