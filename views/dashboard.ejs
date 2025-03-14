@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    
    <h1>Dashboard</h1> 
    <p>Hello <%= user.name %>!</p>
    <h2>Add new item</h2>
@@ -20,8 +21,8 @@
    <button type="submit">Add item</button>
    </form>
    <h2>Items</h2>
-   <ul>
-    
+   <button id="btn">Read</button>
+   <ul id="items">
     <% items.forEach(item => { %>
         <li>  
         <%= item.title%> (<%= item.type%>)
@@ -32,10 +33,27 @@
         </form>
         <% } %>
     </li>
-    <% }) %>
-    
-    
+    <% }) %> 
    </ul>
+    
    <a href="/auth/logout">Log out</a>
+   <script>
+    const items = document.getElementById("items")
+
+
+    document.getElementById("btn").addEventListener("click", async function(){
+        const array = items.innerText.split("\n")
+        console.log(array.toString())
+        const body = JSON.stringify({items:array})
+        console.log(body)
+        fetch("/read", {
+            method:"POST",
+            headers: {
+                "Content-Type":"application/json"
+            },
+            body: body
+        })
+    })
+   </script>
 </body>
 </html>
