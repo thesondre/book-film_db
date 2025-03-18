@@ -28,13 +28,15 @@ app.get("/", (req, res) => {
     res.render("index", {user: req.session.user || null});
 })
 
+/*
 app.post("/read", (req, res) => {
     const textArray = req.body.items
     text = textArray.join(" ")
     res.setHeader("Content-Type", "audio/mpeg")
     GTTs.stream(text).pipe(res)
     
-})
+})*/
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
